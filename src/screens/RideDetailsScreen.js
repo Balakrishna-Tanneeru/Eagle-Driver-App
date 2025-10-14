@@ -1,55 +1,30 @@
+import { useRoute } from "@react-navigation/native";
 import { useContext } from "react";
-import { Alert, Button, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { DriverContext } from "../context/DriverContext";
+import { log } from "../utils/logger";
 
-export default function RideDetailsScreen({ route, navigation }) {
-  const { accept, reject, complete } = useContext(DriverContext);
-  const { ride } = route.params; // ride object passed from PendingRidesScreen
-
-  const handleAccept = async () => {
-    try {
-      await accept(ride.id);
-      Alert.alert("Ride accepted");
-      navigation.goBack();
-    } catch (err) {
-      Alert.alert("Error", err.message || "Failed to accept ride");
-    }
-  };
-
-  const handleReject = async () => {
-    try {
-      await reject(ride.id);
-      Alert.alert("Ride rejected");
-      navigation.goBack();
-    } catch (err) {
-      Alert.alert("Error", err.message || "Failed to reject ride");
-    }
-  };
+export default function RideDetailsScreen() {
+  const { params } = useRoute();
+  const { complete } = useContext(DriverContext);
+  const rideId = params?.rideId;
 
   const handleComplete = async () => {
-    try {
-      await complete(ride.id);
-      Alert.alert("Ride completed");
-      navigation.goBack();
-    } catch (err) {
-      Alert.alert("Error", err.message || "Failed to complete ride");
-    }
+    log(`🏁 Completing ride ${rideId}`);
+    await complete(rideId);
   };
 
   return (
-    <View className="flex-1 p-4">
-      <Text className="text-xl font-bold mb-2">Ride Details</Text>
-      <Text>ID: {ride.id}</Text>
-      <Text>Pickup: {ride.pickup}</Text>
-      <Text>Drop: {ride.drop}</Text>
-      <Text>Fare: ₹{ride.fare}</Text>
-      <Text>Status: {ride.status}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Ride Details</Text>
+      <Text>Ride ID: {rideId}</Text>
 
-      <View className="mt-4">
-        <Button title="Accept Ride" onPress={handleAccept} />
-        <Button title="Reject Ride" onPress={handleReject} color="red" />
-        <Button title="Complete Ride" onPress={handleComplete} color="green" />
-      </View>
+      <Button title="🏁 Complete Ride" onPress={handleComplete} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 20 },
+  title: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
+});

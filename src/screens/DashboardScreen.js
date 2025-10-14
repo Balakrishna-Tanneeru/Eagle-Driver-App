@@ -37,7 +37,7 @@ export default function DashboardScreen() {
   return (
     <View className="flex-1 p-4">
       <Text className="text-lg mb-2">Welcome, {driver?.name || "Driver"}</Text>
-      <Text className="text-lg font-bold mb-2">Pending Rides</Text>
+      <Text className="text-lg font-bold mb-2">Pending Rides..</Text>
 
       {loading ? (
         <Text>Loading rides...</Text>
@@ -49,8 +49,9 @@ export default function DashboardScreen() {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View className="border p-2 mb-2">
-              <Text>Pickup: {item.pickupLocation}</Text>
-              <Text>Drop: {item.dropLocation}</Text>
+              <Text>Pickup: {item.pickupAddress}</Text>
+              <Text>Drop: {item.dropAddress}</Text>              
+              <Text>Distance: ₹{item.distance}</Text>
               <Text>Fare: ₹{item.fare}</Text>
               <View className="flex-row justify-between mt-2">
                 <Button title="Accept" onPress={() => handleAccept(item.id)} />

@@ -3,10 +3,6 @@
     "name": "Eagle Rider",
     "slug": "eagle-rider-expo",
     "version": "1.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -15,11 +11,11 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
+      "enabled": false,
+      "checkAutomatically": "ON_ERROR_RECOVERY",
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "permissions": [
         "ACCESS_FINE_LOCATION",

@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 // ⚠️ Change IP for your real device/emulator
-const API_BASE = "http://192.168.0.4:8080/api/driver/auth";
+const API_BASE = "http://192.168.0.3:8080/api/driver/auth";
 
 const client = axios.create({
   baseURL: API_BASE,
