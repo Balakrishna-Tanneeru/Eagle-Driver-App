@@ -37,3 +37,6 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+# Ignore large archives and Expo files
+*.zip
+
